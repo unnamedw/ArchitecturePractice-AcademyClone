@@ -3,6 +3,7 @@ package com.doachgosum.eliceacademyclone.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.doachgosum.eliceacademyclone.domain.model.CourseModel
 
 @Keep
 data class CourseDetailResponse(
@@ -393,5 +394,16 @@ data class CourseDetailResponse(
         val reason: Any?,
         @SerializedName("status")
         val status: String
+    )
+}
+
+fun CourseDetailResponse.CourseApiModel.toDomainModel(): CourseModel {
+    return CourseModel(
+        id = id,
+        title = title,
+        imgUrl = imageFileUrl,
+        shortDescription = shortDescription,
+        description = description,
+        tags = taglist
     )
 }

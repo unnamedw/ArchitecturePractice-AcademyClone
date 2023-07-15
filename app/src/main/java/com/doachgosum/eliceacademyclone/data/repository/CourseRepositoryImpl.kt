@@ -8,7 +8,9 @@ import com.doachgosum.eliceacademyclone.domain.model.CourseModel
 import com.doachgosum.eliceacademyclone.domain.repository.CourseRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import java.net.URLEncoder
 
 class CourseRepositoryImpl(
     private val courseApiService: CourseApiService,
@@ -19,8 +21,8 @@ class CourseRepositoryImpl(
     override suspend fun getCourseList(
         offset: Int,
         count: Int,
-        filterIsRecommended: Boolean,
-        filterIsFree: Boolean,
+        filterIsRecommended: Boolean?,
+        filterIsFree: Boolean?,
         filterCondition: FilterConditionRequestParam?
     ): List<CourseModel> = withContext(ioDispatcher) {
 
@@ -29,23 +31,39 @@ class CourseRepositoryImpl(
             count = count,
             filterIsRecommended = filterIsRecommended,
             filterIsFree = filterIsFree,
-            filterConditionAsJson = filterCondition?.let { gson.toJson(it) }
+            filterConditionAsJson = filterCondition
+                ?.let { gson.toJson(it) }
+                ?.let { URLEncoder.encode(it) }
         ).courses
             .map { it.toDomainModel() }
     }
 
-    override suspend fun getCourseDetail(courseId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun getCourseDetail(courseId: Int): CourseModel = withContext(ioDispatcher) {
+        return@withContext courseApiService.getCourseDetail(courseId)
+            .course
+            .toDomainModel()
     }
 
     override fun getMyCourseIds(): Set<Int> {
         return prefs.getMyCourseIds()
     }
 
+    override fun getMyCourseIdsFlow(): Flow<Set<Int>> {
+        return prefs.courseIdFlow
+    }
+
     override fun saveCourseId(id: Int) {
         val oldIds = prefs.getMyCourseIds()
         val newIds = oldIds.toMutableSet()
             .apply { add(id) }
+
+        prefs.setMyCourseIds(newIds)
+    }
+
+    override fun deleteCourseId(id: Int) {
+        val oldIds = prefs.getMyCourseIds()
+        val newIds = oldIds.toMutableSet()
+            .apply { remove(id) }
 
         prefs.setMyCourseIds(newIds)
     }

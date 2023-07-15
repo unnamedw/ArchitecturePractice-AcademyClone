@@ -27,13 +27,15 @@ class MainViewModel(
     private val _myCourseList: MutableStateFlow<List<CourseItemUiState>> = MutableStateFlow(emptyList())
     val myCourseList = _myCourseList.asStateFlow()
 
+    private val myCourse = courseRepository.getMyCourseIds()
+
     private var fetchFreeCourseJob: Job? = null
     private var fetchRecommendCourseJob: Job? = null
     private var fetchMyCourseJob: Job? = null
 
     private var freeCoursePage = 0
     private var recommendCoursePage = 0
-    private var myCoursePage = 0
+    private var myCoursePage = myCourse.size
 
 
     init {
@@ -111,10 +113,8 @@ class MainViewModel(
                 val nextList = courseRepository.getCourseList(
                     offset = myCoursePage,
                     count = COUNT_PER_PAGE,
-                    filterIsRecommended = false,
-                    filterIsFree = false,
                     filterCondition = FilterConditionRequestParam(
-                        courseIds = courseRepository.getMyCourseIds().toList()
+                        courseIds = myCourse
                     )
                 ).map { course ->
                     CourseItemUiState(
@@ -123,14 +123,14 @@ class MainViewModel(
                     )
                 }
 
-                _freeCourseList.value = _freeCourseList.value.plus(nextList)
+                _myCourseList.value = _myCourseList.value.plus(nextList)
 
             }.onSuccess {
-                freeCoursePage += COUNT_PER_PAGE
+                myCoursePage += COUNT_PER_PAGE
             }.onFailure {
                 it.printStackTrace()
             }.also {
-                fetchFreeCourseJob = null
+                fetchMyCourseJob = null
             }
         }
     }

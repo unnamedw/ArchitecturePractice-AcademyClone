@@ -503,6 +503,7 @@ fun CourseListResponse.CourseApiModel.toDomainModel(): CourseModel {
         title = title,
         imgUrl = imageFileUrl,
         shortDescription = shortDescription,
+        description = null,
         tags = taglist
     )
 }
