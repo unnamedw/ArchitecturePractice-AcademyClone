@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextStyle_28" parent="BaseTextStyle">
+        <item name="android:textSize" tools:ignore="SpUsage">28dp</item>
+    </style>
+
+    <style name="TextStyle_16" parent="BaseTextStyle">
+        <item name="android:textSize" tools:ignore="SpUsage">16dp</item>
+    </style>
+
+    <style name="TextStyle_14" parent="BaseTextStyle">
+        <item name="android:textSize" tools:ignore="SpUsage">14dp</item>
+    </style>
+
+    <style name="TextStyle_12" parent="BaseTextStyle">
+        <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
+    </style>
+
+    <style name="TextStyle_10" parent="BaseTextStyle">
+        <item name="android:textSize" tools:ignore="SpUsage">10dp</item>
+    </style>
+
+    <style name="TextStyle_8" parent="BaseTextStyle">
+        <item name="android:textSize" tools:ignore="SpUsage">8dp</item>
+    </style>
+</resources>
