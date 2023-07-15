@@ -4,6 +4,6 @@ data class CourseModel(
     val id: Int,
     val title: String,
     val imgUrl: String?,
-    val description: String?,
+    val shortDescription: String?,
     val tags: List<String>
 )

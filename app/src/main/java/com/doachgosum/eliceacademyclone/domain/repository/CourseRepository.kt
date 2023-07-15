@@ -1,5 +1,8 @@
 package com.doachgosum.eliceacademyclone.domain.repository
 
+import com.doachgosum.eliceacademyclone.data.remote.request_param.FilterConditionRequestParam
+import com.doachgosum.eliceacademyclone.domain.model.CourseModel
+
 interface CourseRepository {
 
     suspend fun getCourseList(
@@ -7,8 +10,12 @@ interface CourseRepository {
         count: Int,
         filterIsRecommended: Boolean,
         filterIsFree: Boolean,
-        filterConditions: List<Int>,
-    )
+        filterCondition: FilterConditionRequestParam? = null,
+    ): List<CourseModel>
 
     suspend fun getCourseDetail(courseId: Int)
+
+    fun getMyCourseIds(): Set<Int>
+
+    fun saveCourseId(id: Int)
 }

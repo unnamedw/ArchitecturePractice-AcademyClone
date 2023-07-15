@@ -22,7 +22,7 @@ class RetrofitTest {
             count = 10,
             filterIsRecommended = true,
             filterIsFree = false,
-            paramJson = FilterConditionRequestParam(
+            filterConditionAsJson = FilterConditionRequestParam(
                 courseIds = listOf(1, 2, 3, 4)
             )
         ).also {

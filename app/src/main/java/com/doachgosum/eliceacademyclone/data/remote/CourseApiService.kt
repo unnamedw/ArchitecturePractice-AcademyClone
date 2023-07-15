@@ -1,5 +1,6 @@
 package com.doachgosum.eliceacademyclone.data.remote
 
+import com.doachgosum.eliceacademyclone.data.remote.dto.CourseListResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -14,8 +15,8 @@ interface CourseApiService {
         @Query("count") count: Int,
         @Query("filter_is_recommended") filterIsRecommended: Boolean,
         @Query("filter_is_free") filterIsFree: Boolean,
-        @Query("filter_conditions", encoded = true) paramJson: String,
-    ): String
+        @Query("filter_conditions", encoded = true) filterConditionAsJson: String?,
+    ): CourseListResponse
 
     @GET("org/academy/course/get/")
     suspend fun getCourseDetail(
