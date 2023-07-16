@@ -5,6 +5,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">-1dp</item>
     </style>
 
     <style name="TextStyle_28" parent="BaseTextStyle">
