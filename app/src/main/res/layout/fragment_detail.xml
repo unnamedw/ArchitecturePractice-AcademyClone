@@ -88,10 +88,50 @@
                             layout="@layout/layout_title_bar_without_image"
                             android:visibility="gone"/>
                     </FrameLayout>
-                    <TextView
-                        android:id="@+id/tv_description"
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/frame_description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"
+                            android:paddingEnd="16dp">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="과목소개"
+                                style="@style/TextStyle_14"
+                                android:textColor="@color/color_5A2ECC"
+                                tools:ignore="HardcodedText" />
+                        </FrameLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@color/color_AEAEAE"/>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"
+                            android:paddingEnd="16dp">
+                            <TextView
+                                android:id="@+id/tv_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </FrameLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
                     <TextView
                         android:id="@+id/tv_lectures"
                         android:layout_width="match_parent"

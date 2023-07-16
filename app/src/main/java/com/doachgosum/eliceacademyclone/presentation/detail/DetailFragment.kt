@@ -1,6 +1,7 @@
 package com.doachgosum.eliceacademyclone.presentation.detail
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide
 import com.doachgosum.eliceacademyclone.R
 import com.doachgosum.eliceacademyclone.databinding.FragmentDetailBinding
 import com.doachgosum.eliceacademyclone.presentation.util.getAppContainer
+import io.noties.markwon.Markwon
+import io.noties.markwon.SpannableBuilder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -111,7 +114,17 @@ class DetailFragment: Fragment() {
                 .into(binding.titleWithImage.ivTitleBar)
         }
 
-        binding.tvDescription.text = uiState.course.description
+        if (uiState.course.description.isNullOrEmpty()) {
+            binding.tvDescription.apply {
+                visibility = View.GONE
+            }
+        } else {
+            binding.tvDescription.apply {
+                visibility = View.VISIBLE
+                val markwon = Markwon.create(requireContext())
+                markwon.setMarkdown(this, uiState.course.description)
+            }
+        }
         binding.tvLectures.text = uiState.lectures.toString()
 
         binding.cvBtnApply.setOnClickListener { viewModel.clickApply() }

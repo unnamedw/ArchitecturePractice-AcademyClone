@@ -73,6 +73,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
+    // MD viewer
+    implementation "io.noties.markwon:core:4.6.2"
+
 }
 
 kapt {
