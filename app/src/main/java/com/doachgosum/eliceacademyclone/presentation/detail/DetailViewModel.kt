@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.doachgosum.eliceacademyclone.domain.repository.CourseRepository
 import com.doachgosum.eliceacademyclone.domain.repository.LectureRepository
+import com.doachgosum.eliceacademyclone.presentation.detail.adapter.LectureItemUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
@@ -48,7 +49,17 @@ class DetailViewModel(
 
                 _uiState.value = DetailPageUiState.Success(
                     course = courseAsync.await(),
-                    lectures = lectureListAsync.await()
+                    lectures = lectureListAsync.await().let { lectures ->
+
+                        lectures.mapIndexed { index, lecture ->
+                            LectureItemUiState(
+                                lecture = lecture,
+                                showTopLine = index != 0,
+                                showBottomLine = index != lectures.lastIndex
+                            )
+                        }
+                    }
+
                 )
 
             }.onFailure {

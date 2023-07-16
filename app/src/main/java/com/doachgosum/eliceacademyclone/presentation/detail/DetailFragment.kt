@@ -11,9 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doachgosum.eliceacademyclone.R
 import com.doachgosum.eliceacademyclone.databinding.FragmentDetailBinding
+import com.doachgosum.eliceacademyclone.presentation.detail.adapter.LectureListAdapter
 import com.doachgosum.eliceacademyclone.presentation.util.getAppContainer
 import io.noties.markwon.Markwon
 import io.noties.markwon.SpannableBuilder
@@ -32,6 +34,8 @@ class DetailFragment: Fragment() {
             getAppContainer().lectureRepository
         )
     }
+
+    private val lectureListAdapter = LectureListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
@@ -89,11 +93,18 @@ class DetailFragment: Fragment() {
     }
 
     private fun initView() {
+        binding.rvLectureList.apply {
+            adapter = lectureListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
         binding.ivBackDetail.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .remove(this)
                 .commit()
         }
+
+        binding.cvBtnApply.setOnClickListener { viewModel.clickApply() }
     }
 
     private fun updateUi(uiState: DetailPageUiState.Success) {
@@ -115,6 +126,7 @@ class DetailFragment: Fragment() {
                 .into(binding.titleWithImage.ivTitleBar)
         }
 
+        // update description
         if (uiState.course.description.isNullOrEmpty()) {
             binding.tvDescription.apply {
                 visibility = View.GONE
@@ -128,9 +140,9 @@ class DetailFragment: Fragment() {
                 markwon.setMarkdown(this, uiState.course.description)
             }
         }
-        binding.tvLectures.text = uiState.lectures.toString()
 
-        binding.cvBtnApply.setOnClickListener { viewModel.clickApply() }
+        // update lecture
+        lectureListAdapter.submitList(uiState.lectures)
     }
 
     companion object {
