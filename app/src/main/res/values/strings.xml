@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EliceAcademy Clone</string>
+
+    <string name="title_free_course">무료 과목</string>
+    <string name="title_recommend_course">추천 과목</string>
+    <string name="title_my_course">내 학습</string>
 </resources>

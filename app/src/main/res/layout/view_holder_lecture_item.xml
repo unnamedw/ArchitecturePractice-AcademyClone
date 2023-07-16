@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/view_top_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/color_5A2ECC"
+        android:layout_marginBottom="-1dp"
+        app:layout_constraintStart_toStartOf="@+id/view_circle"
+        app:layout_constraintEnd_toEndOf="@+id/view_circle"
+        app:layout_constraintBottom_toTopOf="@id/view_circle"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/view_circle"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/color_5A2ECC"
+        app:strokeWidth="2dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintTop_toTopOf="@+id/tv_title"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+        android:id="@+id/view_bottom_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/color_5A2ECC"
+        android:layout_marginTop="-1dp"
+        app:layout_constraintStart_toStartOf="@+id/view_circle"
+        app:layout_constraintEnd_toEndOf="@+id/view_circle"
+        app:layout_constraintTop_toBottomOf="@id/view_circle"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Space
+        android:id="@+id/space_top"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextStyle_18"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/view_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space_top"
+        app:layout_constraintBottom_toTopOf="@+id/space_center"/>
+
+    <Space
+        android:id="@+id/space_center"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintBottom_toTopOf="@+id/tv_description"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextStyle_14"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/space_bottom"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space_center"/>
+
+    <Space
+        android:id="@+id/space_bottom"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintEnd_toEndOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
