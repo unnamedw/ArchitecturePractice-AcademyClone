@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             rvCourseList.adapter = freeCourseAdapter
             rvCourseList.addOnScrollListener(object : OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val canScrollDown = rvCourseList.canScrollVertically(1)
+                    val canScrollDown = rvCourseList.canScrollHorizontally(1)
                     val canBeIgnored = dy==0 && dx==0
 
                     if (!canScrollDown && !canBeIgnored) {
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             rvCourseList.adapter = recommendCourseAdapter
             rvCourseList.addOnScrollListener(object : OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val canScrollDown = rvCourseList.canScrollVertically(1)
+                    val canScrollDown = rvCourseList.canScrollHorizontally(1)
                     val canBeIgnored = dy==0 && dx==0
 
                     if (!canScrollDown && !canBeIgnored) {
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             rvCourseList.adapter = myCourseAdapter
             rvCourseList.addOnScrollListener(object : OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val canScrollDown = rvCourseList.canScrollVertically(1)
+                    val canScrollDown = rvCourseList.canScrollHorizontally(1)
                     val canBeIgnored = dy==0 && dx==0
 
                     if (!canScrollDown && !canBeIgnored) {

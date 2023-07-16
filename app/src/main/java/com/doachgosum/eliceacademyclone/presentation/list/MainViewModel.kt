@@ -35,7 +35,7 @@ class MainViewModel(
 
     private var freeCoursePage = 0
     private var recommendCoursePage = 0
-    private var myCoursePage = myCourse.size
+    private var myCoursePage = 0
 
 
     init {
@@ -108,11 +108,22 @@ class MainViewModel(
         if (fetchMyCourseJob?.isActive == true) return
 
         fetchMyCourseJob = viewModelScope.launch {
+
+            val realPageCount = if (myCoursePage < myCourse.size) {
+                if (myCourse.size - myCoursePage > COUNT_PER_PAGE) {
+                    COUNT_PER_PAGE
+                } else {
+                    myCourse.size - myCoursePage
+                }
+            } else {
+                return@launch
+            }
+
             kotlin.runCatching {
 
                 val nextList = courseRepository.getCourseList(
                     offset = myCoursePage,
-                    count = COUNT_PER_PAGE,
+                    count = realPageCount,
                     filterCondition = FilterConditionRequestParam(
                         courseIds = myCourse
                     )
@@ -126,7 +137,7 @@ class MainViewModel(
                 _myCourseList.value = _myCourseList.value.plus(nextList)
 
             }.onSuccess {
-                myCoursePage += COUNT_PER_PAGE
+                myCoursePage = realPageCount
             }.onFailure {
                 it.printStackTrace()
             }.also {
