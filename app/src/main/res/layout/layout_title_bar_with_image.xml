@@ -35,6 +35,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             style="@style/TextStyle_16"
+            android:textStyle="bold"
             android:textColor="@color/black"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.appcompat.widget.AppCompatImageView

@@ -8,12 +8,10 @@
     </style>
 
     <style name="TextStyle_28" parent="BaseTextStyle">
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">28dp</item>
     </style>
 
     <style name="TextStyle_18" parent="BaseTextStyle">
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">18dp</item>
     </style>
 
