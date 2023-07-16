@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
+import java.nio.charset.Charset
 
 class CourseRepositoryImpl(
     private val courseApiService: CourseApiService,
@@ -33,7 +34,6 @@ class CourseRepositoryImpl(
             filterIsFree = filterIsFree,
             filterConditionAsJson = filterCondition
                 ?.let { gson.toJson(it) }
-                ?.let { URLEncoder.encode(it) }
         ).courses
             .map { it.toDomainModel() }
     }

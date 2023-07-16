@@ -16,7 +16,7 @@ interface CourseApiService {
         @Query("count") count: Int,
         @Query("filter_is_recommended") filterIsRecommended: Boolean?,
         @Query("filter_is_free") filterIsFree: Boolean?,
-        @Query("filter_conditions") filterConditionAsJson: String?,
+        @Query("filter_conditions", encoded = true) filterConditionAsJson: String?,
     ): CourseListResponse
 
     @GET("org/academy/course/get/")
