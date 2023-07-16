@@ -27,7 +27,7 @@ class MainViewModel(
     private val _myCourseList: MutableStateFlow<List<CourseItemUiState>> = MutableStateFlow(emptyList())
     val myCourseList = _myCourseList.asStateFlow()
 
-    private val myCourse = courseRepository.getMyCourseIds()
+    private var myCourse = courseRepository.getMyCourseIds()
 
     private var fetchFreeCourseJob: Job? = null
     private var fetchRecommendCourseJob: Job? = null
@@ -37,14 +37,27 @@ class MainViewModel(
     private var recommendCoursePage = 0
     private var myCoursePage = 0
 
-
     init {
-        fetchFreeCourseList()
-        fetchRecommendCourseList()
-        fetchMyCourseList()
+        reloadData()
     }
 
-    fun fetchFreeCourseList() {
+    fun reloadData() {
+        freeCoursePage = 0
+        recommendCoursePage = 0
+        myCoursePage = 0
+
+        myCourse = courseRepository.getMyCourseIds()
+
+        _freeCourseList.value = emptyList()
+        _recommendCourseList.value = emptyList()
+        _myCourseList.value = emptyList()
+
+        fetchNextFreeCourseList()
+        fetchNextRecommendCourseList()
+        fetchNextMyCourseList()
+    }
+
+    fun fetchNextFreeCourseList() {
         if (fetchFreeCourseJob?.isActive == true) return
 
         fetchFreeCourseJob = viewModelScope.launch {
@@ -74,7 +87,7 @@ class MainViewModel(
         }
     }
 
-    fun fetchRecommendCourseList() {
+    fun fetchNextRecommendCourseList() {
         if (fetchRecommendCourseJob?.isActive == true) return
 
         fetchRecommendCourseJob = viewModelScope.launch {
@@ -104,7 +117,7 @@ class MainViewModel(
         }
     }
 
-    fun fetchMyCourseList() {
+    fun fetchNextMyCourseList() {
         if (fetchMyCourseJob?.isActive == true) return
 
         fetchMyCourseJob = viewModelScope.launch {

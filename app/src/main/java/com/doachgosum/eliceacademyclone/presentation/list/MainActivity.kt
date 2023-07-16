@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.doachgosum.eliceacademyclone.R
@@ -90,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                     val canBeIgnored = dy==0 && dx==0
 
                     if (!canScrollDown && !canBeIgnored) {
-                        viewModel.fetchFreeCourseList()
+                        viewModel.fetchNextFreeCourseList()
                     }
                 }
             })
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                     val canBeIgnored = dy==0 && dx==0
 
                     if (!canScrollDown && !canBeIgnored) {
-                        viewModel.fetchRecommendCourseList()
+                        viewModel.fetchNextRecommendCourseList()
                     }
                 }
             })
@@ -120,10 +119,15 @@ class MainActivity : AppCompatActivity() {
                     val canBeIgnored = dy==0 && dx==0
 
                     if (!canScrollDown && !canBeIgnored) {
-                        viewModel.fetchMyCourseList()
+                        viewModel.fetchNextMyCourseList()
                     }
                 }
             })
+        }
+
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.reloadData()
+            binding.swipeContainer.isRefreshing = false
         }
     }
 
