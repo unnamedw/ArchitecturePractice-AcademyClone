@@ -17,6 +17,7 @@ import com.doachgosum.eliceacademyclone.databinding.FragmentDetailBinding
 import com.doachgosum.eliceacademyclone.presentation.util.getAppContainer
 import io.noties.markwon.Markwon
 import io.noties.markwon.SpannableBuilder
+import io.noties.markwon.image.glide.GlideImagesPlugin
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -121,7 +122,9 @@ class DetailFragment: Fragment() {
         } else {
             binding.tvDescription.apply {
                 visibility = View.VISIBLE
-                val markwon = Markwon.create(requireContext())
+                val markwon = Markwon.builder(requireContext())
+                    .usePlugin(GlideImagesPlugin.create(requireContext()))
+                    .build()
                 markwon.setMarkdown(this, uiState.course.description)
             }
         }
