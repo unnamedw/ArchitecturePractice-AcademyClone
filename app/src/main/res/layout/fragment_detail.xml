@@ -49,7 +49,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 style="@style/TextStyle_16"
-                android:textStyle="bold"
                 android:text="정보를 불러오고 있어요"
                 android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
@@ -105,8 +104,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="과목 소개"
-                                style="@style/TextStyle_14"
-                                android:textStyle="bold"
+                                style="@style/TextStyle_14_bold"
                                 android:textColor="@color/color_5A2ECC"
                                 tools:ignore="HardcodedText" />
                         </FrameLayout>
@@ -143,8 +141,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/TextStyle_14"
-                            android:textStyle="bold"
+                            style="@style/TextStyle_14_bold"
                             android:textColor="@color/color_5A2ECC"
                             android:text="커리큘럼"
                             tools:ignore="HardcodedText" />
@@ -182,10 +179,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    style="@style/TextStyle_16"
+                    style="@style/TextStyle_16_bold"
                     android:textColor="@color/white"
                     android:text="수강 신청"
-                    android:textStyle="bold"
                     tools:ignore="HardcodedText,SpUsage" />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -202,7 +198,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="180dp"
                 style="@style/TextStyle_16"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
                 tools:ignore="HardcodedText" />

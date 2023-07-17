@@ -1,38 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="BaseTextStyle">
-        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingExtra">-1dp</item>
     </style>
 
     <style name="TextStyle_28" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">28dp</item>
+    </style>
+
+    <style name="TextStyle_28_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">28dp</item>
     </style>
 
     <style name="TextStyle_18" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">18dp</item>
+    </style>
+
+    <style name="TextStyle_18_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">18dp</item>
     </style>
 
     <style name="TextStyle_16" parent="BaseTextStyle">
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">16dp</item>
+    </style>
+
+    <style name="TextStyle_16_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">16dp</item>
     </style>
 
     <style name="TextStyle_14" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">14dp</item>
+    </style>
+
+    <style name="TextStyle_14_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">14dp</item>
     </style>
 
     <style name="TextStyle_12" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
+    </style>
+
+    <style name="TextStyle_12_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
     </style>
 
     <style name="TextStyle_10" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">10dp</item>
+    </style>
+
+    <style name="TextStyle_10_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">10dp</item>
     </style>
 
     <style name="TextStyle_8" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:textSize" tools:ignore="SpUsage">8dp</item>
+    </style>
+
+    <style name="TextStyle_8_bold" parent="BaseTextStyle">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize" tools:ignore="SpUsage">8dp</item>
     </style>
 </resources>
