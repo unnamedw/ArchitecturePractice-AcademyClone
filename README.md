@@ -20,3 +20,10 @@ FlowChart
 서비스의 비즈니스 모델과 repository, usecase로 나누어집니다.
 
 **Data Layer** : 크게 RemoteDataSource와 LocalDataSource로 나누어지며, SSOT 원칙을 준수하기 위해 데이터의 참조는 모두 Repository를 통해 이루어집니다.
+
+
+## Git
+
+보통 main, develop, feature, release, hotfix의 형태로 브랜치를 나누어 사용합니다.
+
+다만, 본 과제에서는 빠른 작업 진행을 위해 일부 feature를 제외하고는 develop 브랜치에 직접 commit하는 방식으로 작업하였습니다.
