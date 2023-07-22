@@ -1,8 +1,10 @@
 package com.doachgosum.eliceacademyclone.presentation.list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.doachgosum.eliceacademyclone.constant.LogTag
 import com.doachgosum.eliceacademyclone.data.remote.request_param.FilterConditionRequestParam
 import com.doachgosum.eliceacademyclone.domain.model.CourseModel
 import com.doachgosum.eliceacademyclone.domain.repository.CourseRepository
@@ -121,7 +123,7 @@ class MainViewModel(
         if (fetchMyCourseJob?.isActive == true) return
 
         fetchMyCourseJob = viewModelScope.launch {
-
+            Log.d(LogTag.TAG_DEBUG, "myCoursePage >> $myCoursePage, myCourse >> ${myCourse.size}")
             val realPageCount = if (myCoursePage < myCourse.size) {
                 if (myCourse.size - myCoursePage > COUNT_PER_PAGE) {
                     COUNT_PER_PAGE
@@ -133,6 +135,8 @@ class MainViewModel(
             }
 
             kotlin.runCatching {
+
+                Log.d(LogTag.TAG_DEBUG, "realPageCount >> $realPageCount")
 
                 val nextList = courseRepository.getCourseList(
                     offset = myCoursePage,
@@ -150,7 +154,7 @@ class MainViewModel(
                 _myCourseList.value = _myCourseList.value.plus(nextList)
 
             }.onSuccess {
-                myCoursePage = realPageCount
+                myCoursePage += realPageCount
             }.onFailure {
                 it.printStackTrace()
             }.also {
