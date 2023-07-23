@@ -40,19 +40,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_course_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include
-                    android:id="@+id/layout_free_course_list"
-                    layout="@layout/layout_course_list_horizontal"/>
-                <include
-                    android:id="@+id/layout_recommend_course_list"
-                    layout="@layout/layout_course_list_horizontal"/>
-                <include
-                    android:id="@+id/layout_my_course_list"
-                    layout="@layout/layout_course_list_horizontal"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:orientation="vertical"/>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
