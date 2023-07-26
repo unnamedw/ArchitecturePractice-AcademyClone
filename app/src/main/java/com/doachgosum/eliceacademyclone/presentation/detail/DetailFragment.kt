@@ -1,10 +1,12 @@
 package com.doachgosum.eliceacademyclone.presentation.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,7 +26,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class DetailFragment: Fragment() {
-
+    private val onBackPressedCallback: OnBackPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        }
+    }
     private lateinit var binding: FragmentDetailBinding
 
     private val viewModel: DetailViewModel by viewModels {
@@ -99,12 +107,16 @@ class DetailFragment: Fragment() {
         }
 
         binding.ivBackDetail.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
-                .commit()
+            finish()
         }
 
         binding.cvBtnApply.setOnClickListener { viewModel.clickApply() }
+    }
+
+    private fun finish() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
     }
 
     private fun updateUi(uiState: DetailPageUiState.Success) {
@@ -160,4 +172,15 @@ class DetailFragment: Fragment() {
                 }
         }
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onBackPressedCallback.remove()
+    }
+
 }
