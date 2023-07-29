@@ -3,6 +3,7 @@ package com.doachgosum.eliceacademyclone.presentation.detail
 import android.content.Context
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doachgosum.eliceacademyclone.R
+import com.doachgosum.eliceacademyclone.constant.LogTag
 import com.doachgosum.eliceacademyclone.databinding.FragmentDetailBinding
 import com.doachgosum.eliceacademyclone.presentation.detail.adapter.LectureListAdapter
 import com.doachgosum.eliceacademyclone.presentation.util.getAppContainer
+import com.doachgosum.eliceacademyclone.presentation.util.showToast
 import io.noties.markwon.Markwon
 import io.noties.markwon.SpannableBuilder
 import io.noties.markwon.image.glide.GlideImagesPlugin
@@ -45,6 +48,12 @@ class DetailFragment: Fragment() {
 
     private val lectureListAdapter = LectureListAdapter()
 
+    private var onFinish: (() -> Unit)? = null
+
+    fun setOnFinishCallback(callback: () -> Unit) {
+        this.onFinish = callback
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
 
@@ -55,6 +64,20 @@ class DetailFragment: Fragment() {
     }
 
     private fun subscribeViewModel() {
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.event
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collectLatest { event ->
+                    when (event) {
+                        is DetailPageEvent.CompleteApply -> {
+                            requireContext().showToast(event.msg)
+                            finish()
+                        }
+                    }
+                }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
@@ -117,6 +140,8 @@ class DetailFragment: Fragment() {
         requireActivity().supportFragmentManager.beginTransaction()
             .remove(this)
             .commit()
+
+        onFinish?.invoke()
     }
 
     private fun updateUi(uiState: DetailPageUiState.Success) {
@@ -161,6 +186,8 @@ class DetailFragment: Fragment() {
         private const val PARAM_COURSE_ID = "param_course_id"
 
         fun newInstance(courseId: Int): DetailFragment {
+            Log.d(LogTag.TAG_DEBUG, "courseId >> $courseId")
+
             val bundle = Bundle()
                 .apply {
                     putInt(PARAM_COURSE_ID, courseId)
@@ -182,5 +209,7 @@ class DetailFragment: Fragment() {
         super.onDetach()
         onBackPressedCallback.remove()
     }
+
+
 
 }

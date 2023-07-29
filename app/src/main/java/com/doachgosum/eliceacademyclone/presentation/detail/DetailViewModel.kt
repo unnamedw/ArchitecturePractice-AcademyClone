@@ -71,10 +71,16 @@ class DetailViewModel(
     }
 
     fun clickApply() {
-        if (isApplied.value) {
+        val msg: String = if (isApplied.value) {
             courseRepository.deleteCourseId(id = courseId)
+            "수강 취소되었습니다"
         } else {
             courseRepository.saveCourseId(id = courseId)
+            "수강 완료되었습니다"
+        }
+
+        viewModelScope.launch {
+            _event.emit(DetailPageEvent.CompleteApply(msg = msg))
         }
     }
 

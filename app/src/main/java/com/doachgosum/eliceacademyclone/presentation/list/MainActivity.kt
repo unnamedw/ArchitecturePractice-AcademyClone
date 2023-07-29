@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.doachgosum.eliceacademyclone.R
 import com.doachgosum.eliceacademyclone.constant.CourseType
 import com.doachgosum.eliceacademyclone.databinding.ActivityMainBinding
+import com.doachgosum.eliceacademyclone.presentation.detail.DetailFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by viewModels { MainViewModel.Factory() }
+    private var courseListFragments: List<CourseListFragment>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +45,20 @@ class MainActivity : AppCompatActivity() {
     private fun setUpList(types: List<CourseType>) {
         binding.layoutCourseListContainer.removeAllViews()
 
-        val fragments = types.map { CourseListFragment.newInstance(type = it) }
+        courseListFragments = types.map {
+            CourseListFragment.newInstance(type = it).apply {
+                setOnItemClickListener { courseId ->
+                    moveToDetailPage(courseId)
+                }
+            }
+        }
 
         binding.swipeContainer.setOnRefreshListener {
             binding.swipeContainer.isRefreshing = false
-            fragments.forEach { it.refreshList() }
+            courseListFragments?.forEach { it.refreshList() }
         }
 
-        fragments.forEach { fragment ->
+        courseListFragments?.forEach { fragment ->
             val frameLayout = FrameLayout(this).apply {
                 layoutParams = FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
@@ -65,6 +74,18 @@ class MainActivity : AppCompatActivity() {
 
             binding.layoutCourseListContainer.addView(frameLayout)
         }
+    }
+
+    private fun moveToDetailPage(courseId: Int) {
+        val detailFragment = DetailFragment.newInstance(courseId).apply {
+            setOnFinishCallback {
+                courseListFragments?.forEach { it.refreshList() }
+            }
+        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, detailFragment)
+            .commit()
     }
 
 }

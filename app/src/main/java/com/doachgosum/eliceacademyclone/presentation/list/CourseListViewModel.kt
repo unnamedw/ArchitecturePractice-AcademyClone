@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.doachgosum.eliceacademyclone.constant.CourseType
+import com.doachgosum.eliceacademyclone.data.remote.request_param.FilterConditionRequestParam
 import com.doachgosum.eliceacademyclone.domain.model.CourseModel
 import com.doachgosum.eliceacademyclone.domain.repository.CourseRepository
 import com.doachgosum.eliceacademyclone.presentation.list.adapter.CourseItemUiState
@@ -64,11 +65,23 @@ class CourseListViewModel(
 
             kotlin.runCatching {
 
+                val filterCondition = if (courseType == CourseType.MY) {
+                    FilterConditionRequestParam(
+                        courseIds = courseRepository.getMyCourseIds()
+                    )
+                } else {
+                    null
+                }
+
+                val filterIsRecommended = if (courseType == CourseType.RECOMMEND) true else null
+                val filterIsFree = if (courseType == CourseType.FREE) true else null
+
                 val nextList = courseRepository.getCourseList(
                     offset = coursePage,
                     count = nextPageCount,
-                    filterIsRecommended = courseType == CourseType.RECOMMEND,
-                    filterIsFree = courseType == CourseType.FREE
+                    filterIsRecommended = filterIsRecommended,
+                    filterIsFree = filterIsFree,
+                    filterCondition = filterCondition
                 ).map { course ->
                     CourseItemUiState(
                         course = course,
@@ -91,7 +104,7 @@ class CourseListViewModel(
 
     private fun onCourseItemClick(course: CourseModel) {
         viewModelScope.launch {
-            _event.emit(CourseListPageEvent.MoveToDetailPage(courseId = course.id))
+            _event.emit(CourseListPageEvent.ClickItem(courseId = course.id))
         }
     }
 

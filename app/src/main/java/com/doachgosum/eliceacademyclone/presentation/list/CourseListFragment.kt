@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.doachgosum.eliceacademyclone.R
 import com.doachgosum.eliceacademyclone.constant.CourseType
 import com.doachgosum.eliceacademyclone.databinding.LayoutCourseListHorizontalBinding
-import com.doachgosum.eliceacademyclone.presentation.detail.DetailFragment
 import com.doachgosum.eliceacademyclone.presentation.list.adapter.CourseListAdapter
 import com.doachgosum.eliceacademyclone.presentation.util.getAppContainer
 import kotlinx.coroutines.flow.collectLatest
@@ -27,6 +25,11 @@ class CourseListFragment: Fragment() {
     private lateinit var binding: LayoutCourseListHorizontalBinding
 
     private val courseAdapter = CourseListAdapter()
+    private var onItemClick: ((courseId: Int)->Unit)? = null
+
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        this.onItemClick = listener
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +57,7 @@ class CourseListFragment: Fragment() {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collectLatest { event ->
                     when (event) {
-                        is CourseListPageEvent.MoveToDetailPage -> moveToDetailPage(event.courseId)
+                        is CourseListPageEvent.ClickItem -> onItemClick?.invoke(event.courseId)
                     }
                 }
         }
@@ -83,11 +86,6 @@ class CourseListFragment: Fragment() {
         })
     }
 
-    private fun moveToDetailPage(courseId: Int) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, DetailFragment.newInstance(courseId))
-            .commit()
-    }
 
     fun refreshList() {
         viewModel.reloadList()

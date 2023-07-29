@@ -1,5 +1,7 @@
 package com.doachgosum.eliceacademyclone.data.repository
 
+import android.util.Log
+import com.doachgosum.eliceacademyclone.constant.LogTag
 import com.doachgosum.eliceacademyclone.data.local.AppPreferences
 import com.doachgosum.eliceacademyclone.data.remote.CourseApiService
 import com.doachgosum.eliceacademyclone.data.remote.dto.toDomainModel
@@ -26,6 +28,8 @@ class CourseRepositoryImpl(
         filterIsFree: Boolean?,
         filterCondition: FilterConditionRequestParam?
     ): List<CourseModel> = withContext(ioDispatcher) {
+
+        Log.d(LogTag.TAG_DEBUG, "param >> $filterCondition")
 
         return@withContext courseApiService.getAllCourse(
             offset = offset,

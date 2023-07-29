@@ -2,7 +2,9 @@ package com.doachgosum.eliceacademyclone.data.local
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.core.content.edit
+import com.doachgosum.eliceacademyclone.constant.LogTag
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,10 +29,13 @@ class AppPreferences(context: Context) {
     }
 
     fun getMyCourseIds(): Set<Int> {
-        return prefs.getStringSet(KEY_MY_COURSE_IDS, emptySet())
+        return (prefs.getStringSet(KEY_MY_COURSE_IDS, emptySet())
             ?.map { it.toInt() }
             ?.toSet()
-            ?: emptySet()
+            ?: emptySet())
+                .also {
+                    Log.d(LogTag.TAG_DEBUG, it.toString())
+                }
     }
 
     fun setMyCourseIds(courseIds: Set<Int>) {
