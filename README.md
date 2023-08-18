@@ -1,4 +1,4 @@
-# EliceAcademyClone
+# ArchitecturePractice
 
 
 
