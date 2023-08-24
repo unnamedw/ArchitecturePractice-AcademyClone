@@ -26,4 +26,4 @@ FlowChart
 
 보통 main, develop, feature, release, hotfix의 형태로 브랜치를 나누어 사용합니다.
 
-다만, 본 과제에서는 빠른 작업 진행을 위해 일부 feature를 제외하고는 develop 브랜치에 직접 commit하는 방식으로 작업하였습니다.
+다만, 본 프로젝트에서는 빠른 작업 진행을 위해 일부 feature를 제외하고는 develop 브랜치에 직접 commit하는 방식으로 작업하였습니다.
